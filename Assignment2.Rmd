@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2"
-author: "Lewis White"
+author: "Lewis White + Hailey Veirs"
 date: "2023-04-20"
 output: html_document
 ---
@@ -10,6 +10,26 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+#load packages ----
+library(readr)
+library(tidyverse)
+library(here)
+```
 
+```{r}
+#read in data ----
+climate_data <- read_delim(here("clim.txt"), delim = " ")
+```
+
+
+```{r}
+climate_summary <- climate_data %>%
+  group_by(month, year) %>%
+  summarize(total_precip = sum(precip),
+            mean_tmax = mean(tmax_c),
+            mean_tmin = mean(tmin_c)) %>%
+  arrange(year)
+
+head(climate_summary, n = 15)
 ```
 
