@@ -2,7 +2,7 @@ options(scipen = 999)
 
 #' Calculating Almond Crop Yield Statistics
 #' 
-#' Computes the maximum, minimum, and average almond yield when given a data frame containing monthly climate observations of: minimum and maximum temperature in °C, and precipitation in mm.
+#' Computes the maximum, minimum, and average almond yield anomaly (in tons/acres) when given a data frame containing monthly climate observations of: minimum and maximum temperature in °C, and precipitation in mm.
 #' @param climate_data 
 #'
 #' @return Minimum almond yield, mean almond yield, maximum almond yield
