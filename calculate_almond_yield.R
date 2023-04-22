@@ -1,4 +1,4 @@
-options(scipen = 999)
+options(scipen = 999) #remove scientific notation
 
 #' Calculating Almond Crop Yield Statistics
 #' 
