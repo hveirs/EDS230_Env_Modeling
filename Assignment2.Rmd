@@ -21,7 +21,7 @@ library(here)
 climate_data <- read_delim(here("clim.txt"), delim = " ")
 
 #source in the function ----
-source(here("calculate_crop_yield.R"))
+source(here("calculate_almond_yield.R"))
 ```
 
 
