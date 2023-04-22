@@ -19,17 +19,9 @@ library(here)
 ```{r}
 #read in data ----
 climate_data <- read_delim(here("clim.txt"), delim = " ")
+
+#source in the function ----
+source(here("calculate_crop_yield.R"))
 ```
 
-
-```{r}
-climate_summary <- climate_data %>%
-  group_by(month, year) %>%
-  summarize(total_precip = sum(precip),
-            mean_tmax = mean(tmax_c),
-            mean_tmin = mean(tmin_c)) %>%
-  arrange(year)
-
-head(climate_summary, n = 15)
-```
 
