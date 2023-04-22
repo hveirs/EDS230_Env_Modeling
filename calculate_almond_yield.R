@@ -35,12 +35,9 @@ calculate_almond_yield <- function(climate_data) {
   max_yield = max(yield)
   
   # Print the returned values
-  print(paste("Minimum Almond Yield =", min_yield))
-  print(paste("Average Almond Yield =", mean_yield))
-  print(paste("Maximum Almond Yield =", max_yield))
+  print(paste("Minimum Almond Yield =", round(min_yield, 3), "tons/acres"))
+  print(paste("Average Almond Yield =", round(mean_yield, 3), "tons/acres"))
+  print(paste("Maximum Almond Yield =", round(max_yield, 3), "tons/acres"))
   
 }
-
-# Test the function!
-calculate_almond_yield(climate_data = climate_data)
 
