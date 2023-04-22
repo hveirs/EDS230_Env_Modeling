@@ -27,7 +27,7 @@ calculate_almond_yield <- function(climate_data) {
   # These code lines index and extract the total precipitation and temperature values for when the month was January and February (respectively).
   
   # Calculate yield using equation
-  yield <- (0.015 * min_temp_month2) - (0.0046 * min_temp_month2^2) - (0.07 * precip_month1) + (0.0043 * precip_month1^2) + 0.28
+  yield <- (-0.015 * min_temp_month2) - (0.0046 * min_temp_month2^2) - (0.07 * precip_month1) + (0.0043 * precip_month1^2) + 0.28
   
   # Save and return min, max, and average almond yield
   min_yield = min(yield)

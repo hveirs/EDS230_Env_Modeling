@@ -16,7 +16,7 @@ calculate_crop_yield <- function(climate_data) {
   min_temp_month2 <- climate_summary$mean_tmin[which(climate_summary$month == 2)]
   
   # Calculate yield using equation
-  yield <- 0.015 * min_temp_month2 - 0.0046 * min_temp_month2^2 - 0.07 * precip_month1 + 0.0043 * precip_month1^2 + 0.28
+  yield <- -0.015 * min_temp_month2 - 0.0046 * min_temp_month2^2 - 0.07 * precip_month1 + 0.0043 * precip_month1^2 + 0.28
   
   min_yield = min(yield)
   mean_yield = mean(yield)
