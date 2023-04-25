@@ -20,7 +20,7 @@ library(here)
 
 ```{r}
 #read in data ----
-climate_data <- read_delim(here("clim.txt"), delim = " ")
+climate_data <- read_delim(here("Assignment2", "clim.txt"), delim = " ")
 
 #source in the function ----
 source(here("Assignment2", "calculate_almond_yield.R"))
