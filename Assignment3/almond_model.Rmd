@@ -9,3 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+NOTES
+
+UNITS: tons/acre in our model yield.
+
+ALMOND COST: 90 cents to $2.10 per pound. 
