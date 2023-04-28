@@ -1,6 +1,20 @@
 source(here("Assignment3", "almond_script2.R"))
 
-calculate_profit <- function (baseline_profit = 20000, acres = 300, yield_anomaly, price_per_ton = 4000, cost_per_ton = 3950) {
+#' Calculate Profit
+#'
+#' @param baseline_profit The expected profit given a typical almond yield (i.e. no anomaly)
+#' @param acres The number of acres of almond trees 
+#' @param yield_anomaly # Can input a specific, known yield anomaly, or leave null and use yield anomaly values from calculate_almond_yeild_anomaly function
+#' @param price_per_ton The selling price of a ton of almonds 
+#' @param cost_per_ton The cost of producing a ton of almonds
+#'
+#' @return
+#' @export
+#'
+#' @examples calculate_profit(baseline_profit = 19000, acres = 250)
+#' 
+
+calculate_profit <- function (baseline_profit = 20000, acres = 300, yield_anomaly = NULL, price_per_ton = 4000, cost_per_ton = 3950) {
   
   #calculate yield_anomaly using the almond_script
   yield_anomaly = calculate_almond_yield_anomaly(climate_data)
