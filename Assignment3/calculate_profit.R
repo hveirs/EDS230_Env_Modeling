@@ -1,5 +1,3 @@
-source(here("Assignment3", "almond_script2.R"))
-
 #' Calculate Profit
 #'
 #' @param baseline_profit The expected profit given a typical almond yield (i.e. no anomaly)
@@ -11,10 +9,12 @@ source(here("Assignment3", "almond_script2.R"))
 #' @return
 #' @export
 #'
-#' @examples calculate_profit(baseline_profit = 19000, acres = 250)
+#' @examples calculate_profit(climate_data = climate_data, baseline_profit = 19000, acres = 250)
 #' 
 
-calculate_profit <- function (baseline_profit = 20000, acres = 300, yield_anomaly = NULL, price_per_ton = 4000, cost_per_ton = 3950) {
+source(here("Assignment3", "almond_script2.R"))
+
+calculate_profit <- function (climate_data, baseline_profit = 20000, acres = 300, price_per_ton = 4000, cost_per_ton = 3950) {
   
   #calculate yield_anomaly using the almond_script
   yield_anomaly = calculate_almond_yield_anomaly(climate_data)
@@ -28,7 +28,7 @@ calculate_profit <- function (baseline_profit = 20000, acres = 300, yield_anomal
   return(expected_profit)
 }
 
-calculate_profit()
+calculate_profit(climate_data)
 
 
 
