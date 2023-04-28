@@ -9,6 +9,22 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r}
+# LOAD PACKAGES ----
+library(readr)
+library(tidyverse)
+library(here)
+
+
+
+# SOURCE FUNCTIONS ----
+source(here("Assignment3", "almond_script_2.R"))
+source(here("Assignment3", "calculate_profit.R"))
+```
+
+
+
 NOTES
 
 UNITS: tons/acre in our model yield.

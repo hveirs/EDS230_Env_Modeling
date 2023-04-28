@@ -10,7 +10,7 @@ options(scipen = 999) #remove scientific notation
 #'
 #' @examples calculate_almond_yield(climate_data = climate_data)
 #' @export 
-calculate_almond_yield <- function(climate_data, 
+calculate_almond_yield_anomaly <- function(climate_data, 
                                    t_min_coef_1 = -0.015, 
                                    t_min_coef_2 = -0.0046, 
                                    precip_coef_1 = -0.07, 
@@ -32,9 +32,7 @@ calculate_almond_yield <- function(climate_data,
   # These code lines index and extract the total precipitation and temperature values for when the month was January and February (respectively).
   
   # Calculate yield using equation
-  yield <- (t_min_coef_1 * min_temp_month2) + (t_min_coef_2 * min_temp_month2^2) + (precip_coef_1 * precip_month1) + (precip_coef_2 * precip_month1^2) + intercept
+  yield_anomaly <- (t_min_coef_1 * min_temp_month2) + (t_min_coef_2 * min_temp_month2^2) + (precip_coef_1 * precip_month1) + (precip_coef_2 * precip_month1^2) + intercept
   
-  # Save and return min, max, and average almond yield
-  
-  return(list(min_yield = min(yield), mean_yield = mean(yield), max_yield = max(yield)))
+  return(yield_anomaly)
 }
