@@ -17,13 +17,14 @@ library(tidyverse)
 library(here)
 
 
-
 # SOURCE FUNCTIONS ----
 source(here("Assignment3", "almond_script_2.R"))
 source(here("Assignment3", "calculate_profit.R"))
+
+
+#READ IN DATA ----
+climate_data <- read_delim(here("Assignment2", "clim.txt"), delim = " ")
 ```
-
-
 
 ### Informal Sensitivity analysis
 
