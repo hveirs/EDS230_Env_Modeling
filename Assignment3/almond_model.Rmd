@@ -25,8 +25,30 @@ source(here("Assignment3", "calculate_profit.R"))
 
 
 
-NOTES
+### Informal Sensitivity analysis
 
-UNITS: tons/acre in our model yield.
+```{r}
+# First, generate samples for both parameters
+nsamples = 150
+cost_deviation = 0.15
+base_cost = 3950 
+cost_per_ton = runif(min = base_cost - cost_deviation * base_cost, 
+                     max = base_cost + cost_deviation * base_cost, n = nsamples)
 
-ALMOND COST: 90 cents to $2.10 per pound. 
+t_min_coef_1 = rnorm(mean = -0.015, sd = 0.05, n = nsamples)
+
+parms = cbind.data.frame(cost_per_ton, t_min_coef_1)
+
+# use pmap 
+# takes function name and then names of all parameters that don't change
+results = parms %>% pmap(calculate_profit, baseline_profit = 20000, acres = 300, 
+                         yield_anomaly, price_per_ton = 4000)
+
+results[[1]]
+length(results)
+
+# now we can extract results from the list as above
+mean_elect = map_df(results,`[`, c("mean")) 
+# and we can add the parameter values for each run
+mean_elect = cbind.data.frame(mean_elect, parms)
+```
