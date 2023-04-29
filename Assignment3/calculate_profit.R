@@ -41,9 +41,7 @@ calculate_profit <- function (climate_data,
   #calculate the expected profit
   expected_profit = baseline_profit + (total_yield_anomaly * price_per_ton) - (total_yield_anomaly * cost_per_ton)
   
-  return(expected_profit)
+  return(list(expected_profit, mean_profit = mean(expected_profit)))
 }
-
-
 
 
