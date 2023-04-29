@@ -1,15 +1,13 @@
 source(here("Assignment3", "almond_script_2.R"))
 
 
-
-
 #' Calculate Profit
 #'
-#' @param baseline_profit The expected profit given a typical almond yield (i.e. no anomaly)
-#' @param acres The number of acres of almond trees 
-#' @param yield_anomaly # Can input a specific, known yield anomaly, or leave null and use yield anomaly values from calculate_almond_yeild_anomaly function
-#' @param price_per_ton The selling price of a ton of almonds 
-#' @param cost_per_ton The cost of producing a ton of almonds
+#' @param climate_data a data frame containing daily climate observations of: minimum and maximum temperature in °C, and precipitation in mm 
+#' @param baseline_profit The expected profit (in US dollars) given a typical almond yield (i.e. no anomaly)
+#' @param acres The number of acres of almond trees (in acres)
+#' @param price_per_ton The selling price of a ton of almonds (dollars/ton)
+#' @param cost_per_ton The cost of producing a ton of almonds (dollars/ton)
 #'
 #' @return
 #' @export
