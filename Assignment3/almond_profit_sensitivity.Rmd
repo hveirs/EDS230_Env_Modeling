@@ -107,8 +107,13 @@ yield_anom <- climate_data %>%
   summarise(average_precip = mean(precip))
 
 yield_anom <- yield_anom[yield_anom$year != 1988,] %>% # remove 1988 because it only had 2 months and therefore could not have it's yield anomaly calculated
-  mutate(yield_anom = calculate_almond_yield_anomaly(climate_data)) #%>% # add the yield anomalies
-  #mutate(avg_profit = calculate_profit(climate_data))
+  mutate(yield_anom = calculate_almond_yield_anomaly(climate_data)) # add the yield anomalies
+
+# Extract yearly results from the list
+yearly_profit <-  map_df(results,`[`, c('exp_profit'))
+
+# We can add the parameter values for each run
+yearly_profit_parms = cbind.data.frame(yearly_profit, parms)
 
 ```
 
