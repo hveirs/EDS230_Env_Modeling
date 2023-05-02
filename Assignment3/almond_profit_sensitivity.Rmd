@@ -20,7 +20,7 @@ library(ggpubr)
 
 
 # SOURCE FUNCTIONS ----
-source(here("Assignment3", "almond_script_2.R"))
+source(here("Assignment3", "calculate_almond_yield_anomaly.R"))
 source(here("Assignment3", "calculate_profit.R"))
 
 
@@ -28,22 +28,33 @@ source(here("Assignment3", "calculate_profit.R"))
 climate_data <- read_delim(here("Assignment2", "clim.txt"), delim = " ")
 ```
 
-### Informal Sensitivity analysis
+## Informal Sensitivity analysis
+### Generate parameter samples
 
 ```{r}
-# First, generate samples for both parameters
+# Generate samples for both parameters to be analyzed, cost_per_ton and t_min_coef_1
+# Define the number of samples, the standard deviations, and the base cost
 nsamples = 150
 cost_deviation = 0.15
 base_cost = 3950 
+
+# The cost_per_ton will be a uniform distribution because we chose the default value randomly
 cost_per_ton = runif(min = base_cost - cost_deviation * base_cost, 
                      max = base_cost + cost_deviation * base_cost, n = nsamples)
 
+# The t_min_coef_1 was a coefficient chosen by the paper, which means there must be some basis for it
+# We will assume it has a normal distribution 
 t_min_coef_1 = rnorm(mean = -0.015, sd = 0.05, n = nsamples)
 
+# Save these distributions in a data frame object
 parms = cbind.data.frame(cost_per_ton, t_min_coef_1)
+```
 
-# use pmap 
-# takes function name and then names of all parameters that don't change
+### Pmap to apply the profit function
+
+```{r}
+# Use pmap
+# Takes function name and then names of all parameters that don't change
 results = parms %>% pmap(calculate_profit, 
                          baseline_profit = 20000, 
                          acres = 300, 
@@ -53,31 +64,52 @@ results = parms %>% pmap(calculate_profit,
                          precip_coef_1 = -0.07,
                          precip_coef_2 = 0.0043,
                          intercept = 0.28)
-
-
-
+# Check the results
 results[[1]]
 length(results)
+```
 
-# now we can extract results from the list as above
+### Extract results
+
+```{r}
+# Now we can extract results from the list as above
 mean_profit = map_df(results,`[`, c("mean_profit")) 
 
-# and we can add the parameter values for each run
+# We can add the parameter values for each run
 mean_profit_parms = cbind.data.frame(mean_profit, parms)
+```
 
+### Visualizations
 
-
-
-
-p1 = ggplot(mean_profit_parms, aes(x = cost_per_ton, y = mean_profit, col= t_min_coef_1)) + 
+```{r}
+# Plot the cost_per_ton vs the average profit
+p1 <- ggplot(mean_profit_parms, aes(x = cost_per_ton, y = mean_profit, col= t_min_coef_1)) + 
   geom_point() +
   labs(y="Mean Profit", x="Cost to produce 1 ton of almonds", title = "As expected, higher production costs leads \n to lower profit") +
   theme_minimal() 
+# It looks like the cost to produce 1 ton of almonds is very indicative to the overall profit
 
-p2 = ggplot(mean_profit_parms, aes(x = t_min_coef_1, y = mean_profit, col=cost_per_ton)) + 
+# Plot the t_min_coef_1 vs the average profit
+p2 <- ggplot(mean_profit_parms, aes(x = t_min_coef_1, y = mean_profit, col=cost_per_ton)) + 
   geom_point(cex=2) +
   labs(y="Mean Profit", x="Equation coefficient for February mean min temperature", title = "The min_temp coefficient does not have a \n strong association with mean profit") +
   theme_minimal()
+# The t_min_coef_1 is not as strongly associated with average profit
 
 ggarrange(p1,p2)
 ```
+
+```{r}
+# We can also visualize how the yield anomalies affect the average profit
+# First, we need to add the average yield anomaly values from each year to our mean_profit_parms dataframe
+yield_anom <- climate_data %>% 
+  group_by(year) %>% 
+  summarise(average_precip = mean(precip))
+
+yield_anom <- yield_anom[yield_anom$year != 1988,] %>% # remove 1988 because it only had 2 months and therefore could not have it's yield anomaly calculated
+  mutate(yield_anom = calculate_almond_yield_anomaly(climate_data)) #%>% # add the yield anomalies
+  #mutate(avg_profit = calculate_profit(climate_data))
+
+```
+
+
